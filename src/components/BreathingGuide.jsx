@@ -1,33 +1,52 @@
 import React, { useEffect, useState } from "react";
 
-const BreathingGuide = () => {
-  const [phase, setPhase] = useState("inhale");
-  const [timer, setTimer] = useState(4);
+const BreathingGuide = ({ isRunning, duration }) => {
+  const phases = [
+    { name: "Inhale", duration: duration },
+    { name: "Hold", duration: 4 },
+    { name: "Exhale", duration: 4 },
+  ];
+
+  const [phaseIndex, setPhaseIndex] = useState(0);
+  const [timer, setTimer] = useState(phases[0].duration);
 
   //method for calculating and switching phase of breathing
   useEffect(() => {
-    const phases = ["Inhale", "Hold", "Exhale"];
-    let phaseIndex = 0;
+    let interval;
 
-    const interval = setInterval(() => {
-      setPhase(phases[phaseIndex]);
-      phaseIndex = (phaseIndex + 1) % phases.length;
-      setTimer(4);
-    }, 4000);
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer > 1) {
+            return prevTimer - 1;
+          } else {
+            // Move to the next phase and reset the timer
+            const nextPhaseIndex = (phaseIndex + 1) % phases.length;
+            setPhaseIndex(nextPhaseIndex);
+            return phases[nextPhaseIndex].duration;
+          }
+        });
+      }, 1000);
+    } else {
+      clearInterval(interval); // Stop the timer if paused
+    }
+
     return () => clearInterval(interval);
-  }, []);
+  }, [isRunning, setPhaseIndex, phases]);
 
   //method for calculating the countdown
   useEffect(() => {
-    const countdown = setInterval(() => {
-      setTimer((prevTimer) => (prevTimer > 1 ? prevTimer - 1 : prevTimer));
-    }, 1000);
-    return () => clearInterval(countdown); // Cleanup on phase change
-  }, [phase]);
+    if (!isRunning) {
+      setPhaseIndex(0);
+      setTimer(phases[0].duration);
+    }
+  }, [isRunning, phases]);
 
   return (
     <div className="p-6 bg-white shadow rounded-lg text-center w-64 mt-5">
-      <h2 className="text-2xl font-semibold text-gray-800">{phase}</h2>
+      <h2 className="text-2xl font-semibold text-gray-800">
+        {phases[phaseIndex].name}
+      </h2>
       <p className="text-lg text-gray-600">Time: {timer}s</p>
     </div>
   );
