@@ -4,11 +4,17 @@ import TimerSettings from "./components/TimerSettings";
 import ProgressCircle from "./components/ProgressCircle";
 import BreathingGuide from "./components/BreathingGuide";
 import ControlButtons from "./components/ControlButtons";
-
+import clearwaterFall from "./assets/duskview.mp4";
 function App() {
   const [duration, setDuration] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false); // Tracks when countdown ends
+
+  const [playWithSound, setPlayWithSound] = useState(false);
+
+  const handlePlayWithSound = () => {
+    setPlayWithSound(true);
+  };
 
   const handleStart = () => {
     setIsRunning(true);
@@ -28,34 +34,50 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-blue-100 text-center pt-10 bg-mountains bg-cover p-6 ">
-      <Hero AppName="Meditions App" />
+    <div className="relative min-h-screen flex flex-col items-center justify-center bg-gray-100">
+      {!playWithSound && (
+        <button
+          onClick={handlePlayWithSound}
+          className="absolute z-20 px-4 py-2 bg-blue-500 text-white font-semibold rounded"
+        >
+          Play with Sound
+        </button>
+      )}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover z-5"
+        src={clearwaterFall}
+        autoPlay
+        loop
+        fade-in
+        muted={!playWithSound} // Only unmute when playWithSound is true
+      ></video>
 
-      {/* Timer Settings Component */}
-      <TimerSettings setDuration={setDuration} />
+      {/* Content on top of the video */}
+      <div className="relative z-10 flex flex-col items-center">
+        <Hero AppName="Meditions App" />
 
-      {/* Progress Circle Component */}
+        <TimerSettings setDuration={setDuration} />
 
-      <ProgressCircle
-        duration={duration}
-        isRunning={isRunning}
-        setIsComplete={setIsComplete}
-      />
+        <ProgressCircle
+          duration={duration}
+          isRunning={isRunning}
+          setIsComplete={setIsComplete}
+        />
 
-      {/* Placeholder for BreathingGuide */}
-      <BreathingGuide
-        isRunning={isRunning}
-        duration={duration}
-        isComplete={isComplete} // Pass down completion state
-      />
+        <BreathingGuide
+          isRunning={isRunning}
+          duration={duration}
+          isComplete={isComplete} // Pass down completion state
+        />
 
-      {/* Placeholder for ControlButtons */}
-      <ControlButtons
-        isRunning={isRunning}
-        onStart={handleStart}
-        onPause={handlePause}
-        onReset={handleReset}
-      />
+        <ControlButtons
+          isRunning={isRunning}
+          onStart={handleStart}
+          onPause={handlePause}
+          onReset={handleReset}
+        />
+      </div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-5"></div>
     </div>
   );
 }

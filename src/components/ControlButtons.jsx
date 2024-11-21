@@ -2,7 +2,7 @@ import React from "react";
 
 const ControlButtons = ({ isRunning, onStart, onPause, onReset }) => {
   return (
-    <div className="flex space-x-4 mt-6">
+    <div className="flex space-x-4 mt-6 mb-6">
       {isRunning ? (
         <button
           className="bg-red-500 text-white px-4 py-2 rounded"

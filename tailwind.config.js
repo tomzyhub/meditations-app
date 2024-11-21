@@ -9,6 +9,7 @@ export default {
       backgroundImage: {
         'mountains': "url('./src/assets/mountains.jpg')",
         'palmtree': "url('./src/assets/palmtree.jpg')",
+        'VideoBG': "url('./src/assets/clearwaterfall.mp4')",
       }
     },
   },
