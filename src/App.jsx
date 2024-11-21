@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Hero from "./components/Hero";
 import TimerSettings from "./components/TimerSettings";
 import ProgressCircle from "./components/ProgressCircle";
@@ -8,9 +8,11 @@ import ControlButtons from "./components/ControlButtons";
 function App() {
   const [duration, setDuration] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
+  const [isComplete, setIsComplete] = useState(false); // Tracks when countdown ends
 
   const handleStart = () => {
     setIsRunning(true);
+    setIsComplete(false);
   };
 
   const handlePause = () => {
@@ -19,7 +21,10 @@ function App() {
 
   const handleReset = () => {
     setIsRunning(false);
+    setIsComplete(false);
     setDuration(5);
+    setPhaseIndex(0);
+    setTimer(phases[0].duration); // Reset timer to the initial phase duration
   };
 
   return (
@@ -31,10 +36,18 @@ function App() {
 
       {/* Progress Circle Component */}
 
-      <ProgressCircle duration={duration} isRunning={isRunning} />
+      <ProgressCircle
+        duration={duration}
+        isRunning={isRunning}
+        setIsComplete={setIsComplete}
+      />
 
       {/* Placeholder for BreathingGuide */}
-      <BreathingGuide isRunning={isRunning} />
+      <BreathingGuide
+        isRunning={isRunning}
+        duration={duration}
+        isComplete={isComplete} // Pass down completion state
+      />
 
       {/* Placeholder for ControlButtons */}
       <ControlButtons

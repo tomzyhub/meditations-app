@@ -1,29 +1,29 @@
 import { useState, useEffect } from "react";
 
-function ProgressCircle({ duration, isRunning }) {
+function ProgressCircle({ duration, isRunning, setIsComplete }) {
   const [progress, setProgress] = useState(100);
 
   useEffect(() => {
     let interval;
-
     //checking if isrunning is true and if duration is > 0
     if (isRunning) {
-      if (duration > 0) {
-        let timeLeft = duration * 60; // Convert minutes to seconds
-        interval = setInterval(() => {
-          timeLeft -= 1;
-          const newProgress = (timeLeft / (duration * 60)) * 100;
-          setProgress(newProgress);
+      // if (duration > 0) {
+      let timeLeft = duration * 60; // Convert minutes to seconds
+      interval = setInterval(() => {
+        timeLeft -= 1;
+        const newProgress = (timeLeft / (duration * 60)) * 100;
+        setProgress(newProgress);
 
-          if (timeLeft <= 0) {
-            clearInterval(interval);
-          }
-        }, 1000);
-      }
+        if (timeLeft <= 0) {
+          clearInterval(interval);
+          setIsComplete(true);
+        }
+      }, 1000);
+      // }
     }
 
     return () => clearInterval(interval);
-  }, [isRunning, duration]);
+  }, [isRunning, duration, setIsComplete]);
 
   //reset progress to 0 if isrunning is false
   useEffect(() => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const BreathingGuide = ({ isRunning, duration }) => {
+const BreathingGuide = ({ isRunning, duration, isComplete }) => {
   const phases = [
     { name: "Inhale", duration: duration },
     { name: "Hold", duration: 4 },
@@ -31,23 +31,26 @@ const BreathingGuide = ({ isRunning, duration }) => {
       clearInterval(interval); // Stop the timer if paused
     }
 
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // clean up and unmount
   }, [isRunning, setPhaseIndex, phases]);
 
-  //method for calculating the countdown
+  // Resets the guide when `isRunning` changes
   useEffect(() => {
-    if (!isRunning) {
+    if (!isRunning && isComplete) {
       setPhaseIndex(0);
       setTimer(phases[0].duration);
     }
-  }, [isRunning, phases]);
+  }, [isRunning, phases, isComplete]);
 
   return (
     <div className="p-6 bg-white shadow rounded-lg text-center w-64 mt-5">
       <h2 className="text-2xl font-semibold text-gray-800">
-        {phases[phaseIndex].name}
+        {isComplete ? "Done" : phases[phaseIndex].name}
       </h2>
-      <p className="text-lg text-gray-600">Time: {timer}s</p>
+      <p className="text-lg text-gray-600">
+        {" "}
+        {isComplete ? "Great job!" : `Time: ${timer}s`}
+      </p>
     </div>
   );
 };
