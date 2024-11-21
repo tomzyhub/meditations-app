@@ -25,9 +25,9 @@ function ProgressCircle({ duration }) {
   return (
     <div className="relative w-40 h-40 flex items-center justify-center mt-5">
       <svg
-        className="absolute bg-white rounded"
-        width="100%"
-        height="100%"
+        className="mt-6 bg-white shadow rounded-full w-40 h-40 flex items-center justify-center"
+        width="80%"
+        height="80%"
         viewBox="0 0 36 36"
       >
         <circle

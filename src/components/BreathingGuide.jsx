@@ -17,6 +17,7 @@ const BreathingGuide = () => {
     return () => clearInterval(interval);
   }, []);
 
+  //method for calculating the countdown
   useEffect(() => {
     const countdown = setInterval(() => {
       setTimer((prevTimer) => (prevTimer > 1 ? prevTimer - 1 : prevTimer));
