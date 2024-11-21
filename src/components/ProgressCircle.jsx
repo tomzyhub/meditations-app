@@ -1,26 +1,36 @@
 import { useState, useEffect } from "react";
 
-function ProgressCircle({ duration }) {
+function ProgressCircle({ duration, isRunning }) {
   const [progress, setProgress] = useState(100);
 
   useEffect(() => {
     let interval;
 
-    if (duration > 0) {
-      let timeLeft = duration * 60;
+    //checking if isrunning is true and if duration is > 0
+    if (isRunning) {
+      if (duration > 0) {
+        let timeLeft = duration * 60; // Convert minutes to seconds
+        interval = setInterval(() => {
+          timeLeft -= 1;
+          const newProgress = (timeLeft / (duration * 60)) * 100;
+          setProgress(newProgress);
 
-      interval = setInterval(() => {
-        timeLeft -= 1;
-        const newProgress = (timeLeft / (duration * 60)) * 100;
-        setProgress(newProgress);
-
-        if (timeLeft <= 0) {
-          clearInterval(interval);
-        }
-      }, 1000);
+          if (timeLeft <= 0) {
+            clearInterval(interval);
+          }
+        }, 1000);
+      }
     }
+
     return () => clearInterval(interval);
-  }, [duration]);
+  }, [isRunning, duration]);
+
+  //reset progress to 0 if isrunning is false
+  useEffect(() => {
+    if (!isRunning) {
+      setProgress(0); // Reset progress when stopped
+    }
+  }, [isRunning]);
 
   return (
     <div className="relative w-40 h-40 flex items-center justify-center mt-5">
