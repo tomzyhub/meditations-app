@@ -10,11 +10,11 @@ function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false); // Tracks when countdown ends
 
-  const [playWithSound, setPlayWithSound] = useState(false);
+  // const [playWithSound, setPlayWithSound] = useState(false);
 
-  const handlePlayWithSound = () => {
-    setPlayWithSound(true);
-  };
+  // const handlePlayWithSound = () => {
+  //   setPlayWithSound(true);
+  // };
 
   const handleStart = () => {
     setIsRunning(true);
@@ -35,26 +35,26 @@ function App() {
 
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      {!playWithSound && (
+      {/* {!playWithSound && (
         <button
           onClick={handlePlayWithSound}
           className="absolute z-20 px-4 py-2 bg-blue-500 text-white font-semibold rounded"
         >
           Play with Sound
         </button>
-      )}
+      )} */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-5"
         src={clearwaterFall}
         autoPlay
         loop
         fade-in
-        muted={!playWithSound} // Only unmute when playWithSound is true
+        muted //</div>={!playWithSound} // Only unmute when playWithSound is true
       ></video>
 
       {/* Content on top of the video */}
       <div className="relative z-10 flex flex-col items-center">
-        <Hero AppName="Meditions App" />
+        <Hero AppName="Meditations App" />
 
         <TimerSettings setDuration={setDuration} />
 
@@ -77,7 +77,7 @@ function App() {
           onReset={handleReset}
         />
       </div>
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-5"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 z-5"></div>
     </div>
   );
 }
