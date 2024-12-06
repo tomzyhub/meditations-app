@@ -77,7 +77,7 @@ function App() {
           onReset={handleReset}
         />
       </div>
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-20 z-5"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-15 z-5"></div>
     </div>
   );
 }
