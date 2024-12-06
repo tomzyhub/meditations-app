@@ -4,7 +4,7 @@ import TimerSettings from "./components/TimerSettings";
 import ProgressCircle from "./components/ProgressCircle";
 import BreathingGuide from "./components/BreathingGuide";
 import ControlButtons from "./components/ControlButtons";
-import clearwaterFall from "./assets/duskview.mp4";
+import Mountains from "./assets/clearwaterfall.mp4";
 function App() {
   const [duration, setDuration] = useState(5);
   const [isRunning, setIsRunning] = useState(false);
@@ -45,7 +45,7 @@ function App() {
       )} */}
       <video
         className="absolute top-0 left-0 w-full h-full object-cover z-5"
-        src={clearwaterFall}
+        src={Mountains}
         autoPlay
         loop
         fade-in
