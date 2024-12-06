@@ -11,7 +11,7 @@ function TimerSettings({ setDuration }) {
   };
 
   return (
-    <div className="flex flex-col items-center p-4 bg-white shadow rounded-lg">
+    <div className="flex flex-col items-center p-4 bg-blue-50 shadow rounded-lg">
       <h3 className="font-mono text-2xl">Your Time⏰ {minutes}</h3>
       <input
         className="p-4 bg-white rounded w-24 border text-center"

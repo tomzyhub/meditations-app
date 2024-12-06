@@ -43,7 +43,7 @@ const BreathingGuide = ({ isRunning, duration, isComplete }) => {
   }, [isRunning, phases, isComplete]);
 
   return (
-    <div className="p-6 bg-blue-100 shadow rounded-lg text-center w-64 mt-5">
+    <div className="p-6 bg-blue-50 shadow rounded-lg text-center w-64 mt-5">
       <h2 className="text-2xl font-semibold text-gray-800">
         {isComplete ? "Done ✔☑" : phases[phaseIndex].name}
       </h2>
